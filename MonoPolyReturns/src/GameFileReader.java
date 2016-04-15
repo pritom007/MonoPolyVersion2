@@ -30,7 +30,7 @@ public class GameFileReader extends GameMapping{
 		    	 * then set the map
 		    	 */
 		    	for(int i=0;i<line.length();i++){
-		    		GameMapping.map[lineNum][i]=line.charAt(i)+"";
+		    		GameControl.gameMapping.map[lineNum][i]=line.charAt(i)+"";
 		    	}
 		    	
 		        sb.append(line);
