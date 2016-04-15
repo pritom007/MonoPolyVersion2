@@ -11,5 +11,6 @@ public class GameControl {
 	public static GameMapping gameMapping = new GameMapping();
 	public static GameFileReader gameFileReader = new GameFileReader();
 	public static Player player = new Player();
+	public static PlayGame playGame = new PlayGame();
 
 }
