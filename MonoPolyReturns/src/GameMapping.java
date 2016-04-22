@@ -181,11 +181,12 @@ public class GameMapping  {
 	public void printMap(GameMapping mapping,Player player){
 		for (int i = 0; i < mapping.map.length; i++) {
 			for (int j = 0; j < mapping.map[i].length; j++) {
-				
+				/*
 				if (i==player.XpositionOfPlayer && j==player.YpositionOfPlayer) {
 					System.out.print(player.symbol);
 				}
-				else if(mapping.map[i][j]!=null)
+				*/
+				if(mapping.map[i][j]!=null)
 					System.out.print(mapping.map[i][j]);
 				else {
 					System.out.print(" ");

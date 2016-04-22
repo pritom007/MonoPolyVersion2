@@ -15,15 +15,21 @@ public class Player extends GameMapping{
 	String[] position = new String[]{"Clockwise ","Anti Clockwise"};
 	int XpositionOfPlayer = 0;//Said the game player direction
 	int YpositionOfPlayer = 0;//Said the game player direction
-	int currentPosition=0;
+	int currentPosition=-1;
 	/*
 	int[] xCoOrdinate;
 	int[] yCoOrdinate;
 	*/
+	
 	//cash,point,proper of player
 	protected int cashOfPlayer = 10000, depositOfPlayer = 10000,
 	pointOfPlayer = 30,housePropertyOfPlayer = 0,
-	totalMoneyOfPlayer = 20000;
+	totalMoneyOfPlayer = cashOfPlayer+depositOfPlayer;
+	
+	
+	//
+	String[] cardName = new String[]{"Make the money average card","Turn around card","Roadblocks card","Remote dice card","Plunder Card"};
+	int[] numberOfCard = new int[]{5,5,5,100,5};//Game player card number 1
 	
 	public Player(){
 		
@@ -62,6 +68,11 @@ public class Player extends GameMapping{
 	public void setYpositionOfPlayer(int ypositionOfPlayer) {
 		YpositionOfPlayer = ypositionOfPlayer;
 	}
+	public void setAmountOfCard(int cardName){
+		this.numberOfCard[cardName]+=1;
+	}
+
+
 	
 
 }
