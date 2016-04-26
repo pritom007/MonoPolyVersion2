@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 
 public class Bank extends Land{
 	
@@ -65,5 +67,16 @@ public class Bank extends Land{
 		
 		
 	}
+	
+	/*
+	 * Bank interest function
+	 */
+	public void interestOfBank(){
+			for (int i =0;i < GameControl.gameMapping.totalPlayer ;i++ ){
+				GameControl.gameMapping.players[i].depositOfPlayer+= GameControl.gameMapping.players[i].depositOfPlayer/10;
+				//System.out.println(GameControl.player.player[i] + " For interest " + GameControl.player.depositOfPlayer[i]/10);
+			}
+			JOptionPane.showMessageDialog(null,"All players go 10% interest on their deposit" ,"Message from Bank",JOptionPane.INFORMATION_MESSAGE);
+		}
 
 }

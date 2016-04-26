@@ -7,6 +7,7 @@ public class Player extends GameMapping{
 	String playerName="player";
 	//Symbol of player
 	String symbol="";
+	int id;
 	
 	//numbers of player
 	int numberOfPlayer;
@@ -22,31 +23,35 @@ public class Player extends GameMapping{
 	*/
 	
 	//cash,point,proper of player
-	protected int cashOfPlayer = 10000, depositOfPlayer = 10000,
+	protected int cashOfPlayer, depositOfPlayer,
 	pointOfPlayer = 30,housePropertyOfPlayer = 0,
-	totalMoneyOfPlayer = cashOfPlayer+depositOfPlayer;
+	totalMoneyOfPlayer;
 	
 	
 	//
-	String[] cardName = new String[]{"Make the money average card","Turn around card","Roadblocks card","Remote dice card","Plunder Card"};
-	int[] numberOfCard = new int[]{5,5,5,100,5};//Game player card number 1
+	String[] cardName = new String[]{"Make the money average card","Turn around card","Roadblocks card","Dice control card","Rob Cards","xxx","yyy"};
+	int[] numberOfCard = new int[]{5,5,5,100,5,5,5};
+	//controller for dice control card
+	protected boolean diceControl=false;
+	protected boolean[] barricade;
 	
 	public Player(){
 		
 	}
 	
 	//give name and set cash in the beginning of the game
-	public Player(String playerName,int cashOfPlayer,String symbol){
+	public Player(int id,String playerName,int cashOfPlayer,String symbol){
 		this.playerName=playerName;
 		this.cashOfPlayer=cashOfPlayer;
 		this.symbol=symbol;
+		this.id=id;
 	}
 	
 	//all property information of the player
 	public void allPlayerInformation(Player[] players){
 		System.out.println("player name\tpoint\tcash\tDeposite\tHouse property\tThe total amount of real estate assets");
 		for (int i=0;i<players.length;i++) {
-			System.out.println(players[i].playerName + "\t\t" + players[i].pointOfPlayer + "\t" + players[i].cashOfPlayer + "\t" + players[i].depositOfPlayer + "\t\t" + players[i].housePropertyOfPlayer+ "\t\t" + players[i].totalMoneyOfPlayer);
+			System.out.println(players[i].playerName + "\t\t" + players[i].pointOfPlayer + "\t" + players[i].cashOfPlayer + "\t" + players[i].depositOfPlayer + "\t\t" + players[i].housePropertyOfPlayer+ "\t\t" + players[i].getTotalMoney(players[i]));
 			//System.out.println(b);
 		}
 	
@@ -71,7 +76,9 @@ public class Player extends GameMapping{
 	public void setAmountOfCard(int cardName){
 		this.numberOfCard[cardName]+=1;
 	}
-
+	public int getTotalMoney(Player player){
+		return player.cashOfPlayer+player.depositOfPlayer;
+	}
 
 	
 

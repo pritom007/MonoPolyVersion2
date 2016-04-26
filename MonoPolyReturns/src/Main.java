@@ -17,22 +17,29 @@ public class Main {
 		 */
 		
 		//GameFileReader gfr=new GameFileReader();
-		GameMapping gfr = new GameMapping(); 
-		//String inputPlayerName="psad";
-		int totalAmount=100000;
+		
 		Scanner scanner = new Scanner(System.in);
 		
-		Player[] players = new Player[2];
-		PlayGame playGame= new PlayGame();
-		players[0]= new Player("pritom",totalAmount,"*");
-		players[1]=new Player("who are u",totalAmount,"=");
-		players[0].numberOfPlayer=2;
-		players[1].numberOfPlayer=2;
-		for(Player p:players){
-		System.out.println(p.playerName+" "+p.cashOfPlayer+" "+p.depositOfPlayer);
-		}
+		System.out.println("Please help yourself by inputting som information.");
 		
+		System.out.print("Enter the number of players:(please enter 2 or more)");
+		String totalPlayerString=scanner.next();
+		System.out.println();
+		while (!GameControl.gameMapping.isInteger(totalPlayerString)||Integer.parseInt(totalPlayerString)<2) {
+			System.out.println("Invalid input!");
+			System.out.print("\nEnter the number of players(please enter 2 or more):");
+			totalPlayerString=scanner.next();
+		}
+		int totalPlayer=Integer.parseInt(totalPlayerString);
+		GameMapping gfr = new GameMapping(totalPlayer); 
+
+		PlayGame playGame= new PlayGame();
+
+		//initiate the default map here
 		gfr.defaultMap();
+		
+		/*
+		//for printing the map
 		for(int i=0;i<gfr.map.length;i++){
 			for (int j = 0; j < gfr.map[i].length; j++) {
 				if(gfr.map[i][j]!=null)
@@ -43,13 +50,34 @@ public class Main {
 			}
 		System.out.println();
 	}
+	
 		System.out.println(gfr.posNumOfMap.size());
+	*/
+		System.out.println("==========================================");
+		System.out.println("=          Game is Starting Now          =");
+		System.out.println("==========================================");
 		
-		for(int i=0;i<2;){
-			if(playGame.goForWord(players[i%2],gfr)==0){
+		calender calender = new calender();
+		
+		//System.out.println("Today is "+calender.year+"/"+calender.month+"/"+calender.day);
+		
+		boolean addOrNot=false;
+		for(int i=0,j=0;i<totalPlayer;){
+			System.out.println("Today is "+calender.dayname[j]+" "+calender.addDay(calender.year, calender.month, calender.day, addOrNot));
+			System.out.println("Now it's "+gfr.players[i].playerName+"'s turn to roll the dice.");
+			if(playGame.goForWord(gfr.players[i],gfr)==0){
 				i++;
+				if(i==totalPlayer){
+					i=0;
+					addOrNot=true;
+					j=(j+1)%7;
+					
+				}
+				else {
+					addOrNot=false;
+				}
 			}
-			if(playGame.goForWord(players[i],gfr)==-1)
+			else
 				break;
 		}
 		/*
@@ -66,10 +94,13 @@ public class Main {
 	    	 System.out.println();
 	     }
 	     */
-	     
+		 
+	
+		
 		
 		
 		
 	}
+	
 
 }

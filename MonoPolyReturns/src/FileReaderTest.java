@@ -19,7 +19,7 @@ public class FileReaderTest {
 		GFR.readFile("GameMap.txt");
 	}
 	@Test
-	public void testGameFileRead_readFile2() throws IOException{
+	public void  testGameFileRead_readFile2() throws IOException{
 		assertEquals("abc"+System.lineSeparator()+"abc"+System.lineSeparator(), GFR.readFile("src/GameMap.txt"));
 		
 	}

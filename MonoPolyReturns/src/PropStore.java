@@ -39,7 +39,7 @@ public class PropStore extends Land{
 				
 				while (!answer.equals("x") && player.pointOfPlayer>=5) {
 					
-					if(Integer.parseInt(answer)>=1 && Integer.parseInt(answer)<=5){
+					if(Integer.parseInt(answer)>=1 && Integer.parseInt(answer)<=7){
 						
 						System.out.println("Successfully pursed your desired card!");
 						player.pointOfPlayer-=5;

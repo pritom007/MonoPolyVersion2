@@ -8,9 +8,11 @@ public class GameControl {
 	 * any property 
 	 */
 	
-	public static GameMapping gameMapping = new GameMapping();
+	public static GameMapping gameMapping = new GameMapping(0);
 	public static GameFileReader gameFileReader = new GameFileReader();
 	public static Player player = new Player();
 	public static PlayGame playGame = new PlayGame();
+	public static Bank bank=new Bank("€");
+	public static CardLand cardLand=new CardLand("C");
 
 }

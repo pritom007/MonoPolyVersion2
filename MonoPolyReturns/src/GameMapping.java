@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 
 public class GameMapping  {
@@ -17,9 +18,35 @@ public class GameMapping  {
 	//map of the game
 	protected String[][] map = new String[10][20];
 	
+	//
+	int currentTurn = 0;
+	int totalPlayer = 0;
+	Player[] players;
 	//constructor
-	public GameMapping() {
+	public GameMapping(){
 		
+	}
+	public GameMapping(int totalPlayer) {
+		
+		Scanner scanner = new Scanner(System.in);
+		players = new Player[totalPlayer];
+		
+		this.totalPlayer = totalPlayer;
+		for(int i = 0;i < players.length;i++){
+			players[i] = new Player();
+			players[i].id=i;
+			System.out.print("\nplease enter the player name:");
+			players[i].playerName=scanner.next();
+			System.out.print("\nPlease enter the symbol of the player(enter unique symbol/just 1 character):");
+			players[i].symbol=scanner.next().charAt(0)+"";
+			players[i].cashOfPlayer=10000;
+			players[i].depositOfPlayer=10000;
+			players[i].totalMoneyOfPlayer=players[i].getTotalMoney(players[i]);
+			System.out.println("\n"+players[i].playerName+"( "+players[i].symbol+" ) has cash of "+players[i].cashOfPlayer+",deposit of "
+			+players[i].depositOfPlayer
+			+",points of "+players[i].pointOfPlayer);
+			players[i].numberOfPlayer=totalPlayer;
+			}
 	}
 	
 	//make map from left to right
@@ -171,7 +198,7 @@ public class GameMapping  {
 	public int formatPosition(String position,char xy) {
 		System.out.println(position);
 		String partStrings[]=position.split("\\*");
-		System.out.println(partStrings[0]+" "+partStrings[1]);
+		//System.out.println(partStrings[0]+" "+partStrings[1]);
 		return (xy=='X')?Integer.parseInt(partStrings[0]):Integer.parseInt(partStrings[1]);
 	}
 	
@@ -195,6 +222,35 @@ public class GameMapping  {
 			System.out.println();
 		}//end for loop
 	}//end method
+	
+	public Player getCurrentPlayer() {
+		return players[currentTurn];
+	}
+	
+	public Player[] getPlayers() {
+		return players;
+	}
+	
+	public void nextTurn() {
+		if(++currentTurn >= players.length){
+			currentTurn = 0;
+		}
+	}
+	
+	public Player getPlayer(int id) {
+		return players[id];
+	}
+	boolean isInteger(String input){
+		boolean b = true;
+		char[] q = input.toCharArray();
+		for (int i = 0 ;i < q.length ;i++ ){
+			if (q[i] < '0' || q[i] > '9'){
+				b = false;
+				break;
+			}
+		}
+		return b;
+	}
 	
 	
 }
