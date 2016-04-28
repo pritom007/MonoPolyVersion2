@@ -16,7 +16,8 @@ public class Player extends GameMapping{
 	String[] position = new String[]{"Clockwise ","Anti Clockwise"};
 	int XpositionOfPlayer = 0;//Said the game player direction
 	int YpositionOfPlayer = 0;//Said the game player direction
-	int currentPosition=-1;
+	int currentPosition=0,lastPosition,nextPosition;
+	
 	/*
 	int[] xCoOrdinate;
 	int[] yCoOrdinate;
@@ -29,7 +30,7 @@ public class Player extends GameMapping{
 	
 	
 	//
-	String[] cardName = new String[]{"Make the money average card","Turn around card","Roadblocks card","Dice control card","Rob Cards","xxx","yyy"};
+	String[] cardName = new String[]{"Make the money average card","Turn around card","Roadblocks card","Dice control card","Rob Cards","Cash to Card","Get points Card"};
 	int[] numberOfCard = new int[]{5,5,5,100,5,5,5};
 	//controller for dice control card
 	protected boolean diceControl=false;
@@ -49,10 +50,10 @@ public class Player extends GameMapping{
 	
 	//all property information of the player
 	public void allPlayerInformation(Player[] players){
-		System.out.println("player name\tpoint\tcash\tDeposite\tHouse property\tThe total amount of real estate assets");
+		System.out.println("player name(symbol)\tpoint\tcash\tDeposite\tHouse property\tThe total amount of real estate assets");
 		for (int i=0;i<players.length;i++) {
-			System.out.println(players[i].playerName + "\t\t" + players[i].pointOfPlayer + "\t" + players[i].cashOfPlayer + "\t" + players[i].depositOfPlayer + "\t\t" + players[i].housePropertyOfPlayer+ "\t\t" + players[i].getTotalMoney(players[i]));
-			//System.out.println(b);
+			System.out.println(players[i].playerName +"("+players[i].symbol+")" +"\t\t\t" + players[i].pointOfPlayer + "\t" + players[i].cashOfPlayer + "\t" + players[i].depositOfPlayer + "\t\t" + players[i].housePropertyOfPlayer+ "\t\t" + players[i].getTotalMoney(players[i]));
+
 		}
 	
 	
@@ -77,7 +78,7 @@ public class Player extends GameMapping{
 		this.numberOfCard[cardName]+=1;
 	}
 	public int getTotalMoney(Player player){
-		return player.cashOfPlayer+player.depositOfPlayer;
+		return player.cashOfPlayer+player.depositOfPlayer+player.housePropertyOfPlayer;
 	}
 
 	

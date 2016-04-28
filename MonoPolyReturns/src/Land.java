@@ -1,5 +1,5 @@
 
-public abstract class Land{
+public abstract class Land extends GameMapping{
 	
 	String name;
 	

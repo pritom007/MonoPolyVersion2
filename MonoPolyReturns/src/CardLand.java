@@ -10,7 +10,7 @@ public class CardLand extends Land{
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
-
+	Scanner scanner=new Scanner(System.in);
 	@Override
 	public void doAction(Player player, GameMapping gameMapping) {
 		
@@ -18,6 +18,11 @@ public class CardLand extends Land{
 		player.setAmountOfCard(randomCard);
         System.out.println("you got a "+player.cardName[randomCard]);
         //JOptionPane.showMessageDialog(null, "You got a "+player.cardName[randomCard]+" cupon points","Congratulations For Winning Card",JOptionPane.INFORMATION_MESSAGE);		
+        gameMapping.map[player.XpositionOfPlayer][player.YpositionOfPlayer]=gameMapping.mapOfGame.get(gameMapping.posNumOfMap.get(player.currentPosition));
+		player.currentPosition=player.nextPosition;
+		player.setXpositionOfPlayer(gameMapping.formatPosition(gameMapping.posNumOfMap.get(player.currentPosition%(gameMapping.posNumOfMap.size())), 'X'));
+		player.setYpositionOfPlayer(gameMapping.formatPosition(gameMapping.posNumOfMap.get(player.currentPosition%(gameMapping.posNumOfMap.size())), 'Y'));
+		gameMapping.map[player.XpositionOfPlayer][player.YpositionOfPlayer]=player.symbol;
 	}
 	
 	/*
@@ -72,6 +77,7 @@ public class CardLand extends Land{
 				input=sc.next();
 			
 		}
+		
 	}
 
 	private void cashToPoints(Player player, GameMapping gameMapping) {
@@ -96,7 +102,7 @@ public class CardLand extends Land{
 				System.out.println((i+1)+". "+player.cardName[i]+" amount="+player.numberOfCard[i]);
 			}
 			System.out.print("input the card number you want to buy(press x to go back): ");
-			Scanner scanner=new Scanner(System.in);
+			
 			String 	inputString=scanner.next();
 			while (!inputString.equals("x")) {
 				if(gameMapping.isInteger(inputString)){
@@ -158,7 +164,85 @@ public class CardLand extends Land{
 	
 
 	private void barricades(Player player, GameMapping gameMapping) {
-		// TODO Auto-generated method stub
+		if(player.numberOfCard[2]>=1){
+			System.out.println("you are going to use the barricade card!!!");
+			System.out.println("You want to put barricade in which direction?");
+			System.out.println("1.Within 8 steps front?\n2.Within 8 steps back?");
+			String choice=scanner.next();
+			
+			while (!(choice.equals("1")||choice.equals("2"))) {
+				System.out.println("invalid input.");
+				System.out.println("You want to put barricade in which direction?");
+				System.out.println("1.Within 8 steps front?\n2.Within 8 steps back?");
+				choice=scanner.next();
+			}
+			while (true) {
+				if(choice.equals("1")){
+					System.out.print("please enter number:");
+					choice=scanner.next();
+					if(gameMapping.isInteger(choice)){
+						if (Integer.parseInt(choice)>=1 && Integer.parseInt(choice)<=8) {
+								if(Integer.parseInt(choice)>=1 && Integer.parseInt(choice)<=8 ){
+									gameMapping.barricade[player.currentPosition+Integer.parseInt(choice)]=true;
+									gameMapping.barricadOwner[player.currentPosition+Integer.parseInt(choice)]=player.playerName;
+									break;
+								}
+								else{
+									System.out.println("invalid input!");
+									System.out.print("please enter number:");
+									choice=scanner.next();
+								}
+						}
+						else {
+							System.out.println("invalid input!");
+							choice="1";
+							continue;
+						}
+					}
+					else {
+						System.out.println("invalid input!");
+						choice="1";
+						continue;
+					}
+				}
+				else if(choice.equals("2")){
+					System.out.print("please enter number:");
+					choice=scanner.next();
+					if(gameMapping.isInteger(choice)){
+						if (Integer.parseInt(choice)>=1 && Integer.parseInt(choice)<=8) {
+								if(Integer.parseInt(choice)>=1 && Integer.parseInt(choice)<=8 ){
+									gameMapping.barricadOwner[(player.currentPosition-Integer.parseInt(choice))%gameMapping.mapOfGame.size()]=player.playerName;
+									gameMapping.barricade[(player.currentPosition-Integer.parseInt(choice))%gameMapping.mapOfGame.size()]=true;
+									break;
+								}
+								else{
+									System.out.println("invalid input!");
+									System.out.print("please enter number:");
+									choice=scanner.next();
+								}
+						}
+						else {
+							System.out.println("invalid input!");
+							choice="1";
+							continue;
+						}
+					}
+					else {
+						System.out.println("invalid input!");
+						choice="1";
+						continue;
+					}
+				}
+				else {
+					System.out.println("You want to put barricade in which direction?");
+					System.out.println("1.Within 8 steps front?\n2.Within 8 steps back?");
+					choice=scanner.next();
+				}
+			}
+		}
+		else{
+			System.out.println("You don't have enough card!");
+		}
 		
 	}
 
@@ -226,6 +310,18 @@ public class CardLand extends Land{
 			System.out.println("sorry you don't have enough card!");
 		}
 		
+	}
+	protected boolean checkBarricadeInRoad(Player player,GameMapping gameMapping){
+		for (int i = player.currentPosition+1; i <= player.nextPosition; i++) {
+			if(gameMapping.barricade[i]){
+				if(!gameMapping.barricadOwner[i].equals(player.playerName)){
+					gameMapping.barricade[i]=false;
+					gameMapping.barricadOwner[i]="";
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }

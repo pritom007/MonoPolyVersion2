@@ -1,10 +1,7 @@
 
 import java.io.IOException;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.zip.GZIPOutputStream;
 
-import org.omg.CORBA.FREE_MEM;
 
 
 public class Main {
@@ -95,9 +92,6 @@ public class Main {
 	     }
 	     */
 		 
-	
-		
-		
 		
 		
 	}

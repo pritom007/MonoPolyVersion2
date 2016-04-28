@@ -13,8 +13,19 @@ public class GameMapping  {
 	protected Map<String, String> mapOfGame = new HashMap<String, String>();
 	protected Map<Integer, String> posNumOfMap = new HashMap<Integer, String>(); 
 	
+	//level of the land
+	int[] levelOfLand;
+	//names of land 
+	String[] nameOfLand;
+	//owner of the land 
+	String[] ownerOfLand;
+	//is there any barricade or not
+	boolean[] barricade;
+	//barricade owners
+	String[] barricadOwner;
+ 	
 	//keeps track of the total number of places
-	private int count = 0;
+	protected int count = 0;
 	//map of the game
 	protected String[][] map = new String[10][20];
 	
@@ -27,10 +38,8 @@ public class GameMapping  {
 		
 	}
 	public GameMapping(int totalPlayer) {
-		
 		Scanner scanner = new Scanner(System.in);
 		players = new Player[totalPlayer];
-		
 		this.totalPlayer = totalPlayer;
 		for(int i = 0;i < players.length;i++){
 			players[i] = new Player();
@@ -63,7 +72,6 @@ public class GameMapping  {
 			System.out.println("letfToRight(int "+from+",int "+to+" ) "+ "has problem");
 			System.exit(0);
 		}
-		
 	}
 	//make map from right to left
 	public void rightToLeft(int from,int to){
@@ -134,8 +142,9 @@ public class GameMapping  {
 	 */
 	public void setOtherOption(int row,int col,String newOpt){
 		map[row][col] = newOpt;
-		mapOfGame.put(row+""+col, map[row][col]);
-		posNumOfMap.put(count, row+""+col);
+		mapOfGame.put(row+"*"+col, map[row][col]);
+		posNumOfMap.put(count, row+"*"+col);
+		System.out.println(count);
 	}
 	/*
 	 * making a default map for the game
@@ -147,8 +156,8 @@ public class GameMapping  {
 		setOtherOption(0, 4, "C");
 		topToBottom(0, 1);
 		leftToRight(8, 10);
-		setOtherOption(1, 10, "N");
 		topToBottom(1, 4);
+		setOtherOption(1, 10, "N");
 		leftToRight(10, 14);
 		setOtherOption(4, 13, "€");
 		bottomToTop(4, 0);
@@ -175,10 +184,10 @@ public class GameMapping  {
 		rightToLeft(14, 12);
 		topToBottom(6, 9);
 		rightToLeft(12, 9);
-		setOtherOption(9, 13, "C");
+		setOtherOption(9, 12, "C");
 		bottomToTop(9, 6);
 		rightToLeft(9, 6);
-		setOtherOption(6, 10, "N");
+		setOtherOption(6, 9, "N");
 		bottomToTop(6, 5);
 		rightToLeft(6, 2);
 		setOtherOption(5, 4, "€");
@@ -188,6 +197,23 @@ public class GameMapping  {
 		setOtherOption(2, 1, "L");
 		setOtherOption(2, 0, "P");
 		setOtherOption(1, 0, "P");
+		levelOfLand = new int[posNumOfMap.size()];
+		nameOfLand = new String[posNumOfMap.size()];
+		barricade = new boolean[posNumOfMap.size()];
+		ownerOfLand = new String[posNumOfMap.size()];
+		barricadOwner = new String[posNumOfMap.size()];
+		char name='A';
+		for(int i=0;i<posNumOfMap.size();i++){
+			levelOfLand[i]=0;
+			barricade[i]=false;
+			ownerOfLand[i]="";
+			barricadOwner[i]="";
+			nameOfLand[i]=String.valueOf(name)+(i%10);
+			if((i+1)%10==0){
+				name++;
+			}
+			
+		}
 		
 	}
 	
