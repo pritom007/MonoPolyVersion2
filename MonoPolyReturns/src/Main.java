@@ -36,8 +36,6 @@ public class Main {
 		System.out.println("==========================================");
 		
 		calender calender = new calender();
-		
-		//System.out.println("Today is "+calender.year+"/"+calender.month+"/"+calender.day);
 		playGame.setStockBonus();
 		boolean addOrNot=false;
 		for(int i=0,j=0;i<gfr.totalPlayer;){
