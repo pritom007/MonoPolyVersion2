@@ -59,6 +59,9 @@ public class calender {
 			this.month=month;
 			this.day=day;
 		}
+		public void setDayName(String dayName) {
+			DayName = dayName;
+		}
 		    
 		 
 		}

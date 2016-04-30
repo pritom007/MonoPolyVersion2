@@ -1,36 +1,66 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 import org.omg.CORBA.PRIVATE_MEMBER;
 
 
-public class PlayGame extends Options{
+public class PlayGame extends StockMarket{
 	
 	public PlayGame() {
 		}
 
-	public int goForWord(Player player,GameMapping gameMapping){
-		
+	public int goForWord(Player player,GameMapping gameMapping) throws IOException{
 		
 		String press;
 		Scanner sc = new Scanner(System.in);
-		
-		printOption();
+		Options options=new Options();
+		options.printOption();
 		press=sc.next();
-		//System.out.println(GameControl.gameMapping.isInteger(press));
 		while(true){
 			if (!GameControl.gameMapping.isInteger(press)) {
 					System.out.println("wrong input");
 			}
+			/*
+			 * default map
+			 * 
+			 */
+			else if (Integer.parseInt(press)==0) {
+				GameFileReader gfr= new GameFileReader();
+				System.out.println(gfr.readFile("src/GameMap.txt"));
+			}
+			/*
+			 * print current map
+			 */
 			else if(Integer.parseInt(press)==1){
 				gameMapping.printMap(gameMapping,player);
-				//gameMapping.map[player.XpositionOfPlayer][player.XpositionOfPlayer] = player.symbol;
 			}
+			/*
+			 * check if there is any barricade ahead
+			 */
+			else if (Integer.parseInt(press)==2) {
+				for (int i = player.currentPosition+1; i <= 10; i++) {
+					if(gameMapping.barricade[i]){
+						if(!gameMapping.barricadOwner[i].equals(player.playerName)){
+							System.out.println("There is a barricade "+i+" steps ahead of you!");
+							break;
+						}
+					}
+					else if (!gameMapping.barricade[i] && i==10) {
+						System.out.println("No barricades ahead!");
+						break;
+					}
+					
+				}
+			}
+			/*
+			 * use cards
+			 */
 			else if(Integer.parseInt(press)==3){
 				GameControl.cardLand.cardOperation(player, gameMapping);
 			}
-			else if(Integer.parseInt(press)==5){
-				player.allPlayerInformation(gameMapping.players);
-			}
+			/*
+			 * check a particular land information
+			 */
 			else if(Integer.parseInt(press)==4){
 				System.out.print("please input number from 0~"+gameMapping.levelOfLand.length+" to get the information of that land.");
 				String i=sc.next();
@@ -53,12 +83,41 @@ public class PlayGame extends Options{
 				}
 					
 			}
+			/*
+			 * see all player's information here 
+			 */
+			else if(Integer.parseInt(press)==5){
+				player.allPlayerInformation(gameMapping.players);
+			}
+			/*
+			 * roll the dice and change the turn
+			 */
 			else if(Integer.parseInt(press)==6){
 				player.lastPosition=player.currentPosition;
 				int diceRoll;
+				/*
+				 * just to make sure if player has enough money
+				 * if not game will finish here
+				 */
+				if(player.totalMoneyOfPlayer<0){
+					gameMapping.finishGame(player, gameMapping);
+				}
+				/*
+				 * if player didn't use the dice control card
+				 */
 				if(!player.diceControl){
 					diceRoll=(int) (Math.random()*6 +1);
 				}
+				/*
+				 * if player use stay in place card
+				 */
+				else if (player.stayInPlace) {
+					diceRoll=0;
+					player.stayInPlace=false;
+				}
+				/*
+				 * if player used the dice control card
+				 */
 				else {
 					System.out.print("Please input your desired number between 1 to 6 :");
 					diceRoll=Integer.parseInt(sc.next());
@@ -70,37 +129,45 @@ public class PlayGame extends Options{
 					}
 					player.diceControl=false;
 				}
-				//watch out this step
-				System.out.println("diceroll "+diceRoll+" "+gameMapping.posNumOfMap.size()+" "+gameMapping.count
-						+" "+gameMapping.mapOfGame.size());
-				/*
-				for(int i=0;i<=gameMapping.posNumOfMap.size();i++)
-					System.out.println(gameMapping.posNumOfMap.get(i)+" "+gameMapping.mapOfGame.get(gameMapping.posNumOfMap.get(i)));
-				System.out.println(gameMapping.mapOfGame.get(gameMapping.posNumOfMap.get(player.currentPosition+diceRoll)));
-				*/
 				
+				//assuming the next step
 				player.nextPosition+=diceRoll%(gameMapping.posNumOfMap.size());
-				//player.setXpositionOfPlayer(gameMapping.formatPosition(gameMapping.posNumOfMap.get(player.currentPosition%(gameMapping.posNumOfMap.size())), 'X'));
-				//player.setYpositionOfPlayer(gameMapping.formatPosition(gameMapping.posNumOfMap.get(player.currentPosition%(gameMapping.posNumOfMap.size())), 'Y'));
-				
-				operation(gameMapping.mapOfGame.get(gameMapping.posNumOfMap.get(player.nextPosition)), player, gameMapping);
-				//gameMapping.map[player.XpositionOfPlayer][player.YpositionOfPlayer]=player.symbol;
-				
+				//operations for next step
+				options.operation(gameMapping.mapOfGame.get(gameMapping.posNumOfMap.get(player.nextPosition)), player, gameMapping);
+				//after all the operation player is going to change
 				gameMapping.nextTurn();
 				break;
 			}
-			
+			/*
+			 * game is going to end
+			 */
 			else if(Integer.parseInt(press)==7){
-				return -1;
+				System.out.println(player.playerName+" has quit!");
+				if (gameMapping.finishGame(player, gameMapping)==-1)
+					return -1;
+				else {
+					return 1;
+				}
+				
 			}
-			
+			/*
+			 * stock market
+			 */
+			else if(Integer.parseInt(press)==8){
+				
+				if(verifyDay(GameControl.calender)){
+					System.out.println("Welcome to stock market.");
+					stockOption(player,gameMapping);
+				}
+				
+			}
+			//in case of wrong input
 			else{
 				System.out.println("wrong input");
 			}
-			printOption();
+			options.printOption();
 			press=sc.next();
 		}
-		//GameMapping.this.posNumOfMap.()
 		return 0;
 	}
 	

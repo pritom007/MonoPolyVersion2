@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 
 public class GameMapping  {
-	
 	//map[Xpos][Ypos]
 	private  int Xpos,Ypos;
 	//MaxX,MaxY by default we set the size 20x20 (01...19 = 20)
@@ -41,7 +40,7 @@ public class GameMapping  {
 		Scanner scanner = new Scanner(System.in);
 		players = new Player[totalPlayer];
 		this.totalPlayer = totalPlayer;
-		for(int i = 0;i < players.length;i++){
+		for(int i = 0;i < totalPlayer;i++){
 			players[i] = new Player();
 			players[i].id=i;
 			System.out.print("\nplease enter the player name:");
@@ -144,7 +143,6 @@ public class GameMapping  {
 		map[row][col] = newOpt;
 		mapOfGame.put(row+"*"+col, map[row][col]);
 		posNumOfMap.put(count, row+"*"+col);
-		System.out.println(count);
 	}
 	/*
 	 * making a default map for the game
@@ -224,7 +222,6 @@ public class GameMapping  {
 	public int formatPosition(String position,char xy) {
 		System.out.println(position);
 		String partStrings[]=position.split("\\*");
-		//System.out.println(partStrings[0]+" "+partStrings[1]);
 		return (xy=='X')?Integer.parseInt(partStrings[0]):Integer.parseInt(partStrings[1]);
 	}
 	
@@ -234,11 +231,6 @@ public class GameMapping  {
 	public void printMap(GameMapping mapping,Player player){
 		for (int i = 0; i < mapping.map.length; i++) {
 			for (int j = 0; j < mapping.map[i].length; j++) {
-				/*
-				if (i==player.XpositionOfPlayer && j==player.YpositionOfPlayer) {
-					System.out.print(player.symbol);
-				}
-				*/
 				if(mapping.map[i][j]!=null)
 					System.out.print(mapping.map[i][j]);
 				else {
@@ -258,7 +250,7 @@ public class GameMapping  {
 	}
 	
 	public void nextTurn() {
-		if(++currentTurn >= players.length){
+		if(++currentTurn >= totalPlayer){
 			currentTurn = 0;
 		}
 	}
@@ -266,6 +258,33 @@ public class GameMapping  {
 	public Player getPlayer(int id) {
 		return players[id];
 	}
+	public void setPlayers(Player[] players,Player player) {
+		for(int i=0;i<barricade.length;i++){
+			if(barricadOwner[i].equals(player.playerName)){
+				barricadOwner[i]="";
+				barricade[i]=false;
+			}
+			if(ownerOfLand[i].equals(player.playerName)){
+				levelOfLand[i]=0;
+				ownerOfLand[i]="";
+			}
+		}
+	
+		for (int i = player.id; i < players.length-1; i++) {
+			players[i]=players[i+1];
+		}
+		this.totalPlayer-=1;
+		this.players=players;
+	}
+	public Player getMaxMoneyPlayer() {
+		Player maxplayer = null;
+		for(Player player:players){
+			if(maxplayer == null || maxplayer.totalMoneyOfPlayer < player.totalMoneyOfPlayer){
+				maxplayer = player;
+			}
+		}
+		return maxplayer;
+	}	
 	boolean isInteger(String input){
 		boolean b = true;
 		char[] q = input.toCharArray();
@@ -276,6 +295,20 @@ public class GameMapping  {
 			}
 		}
 		return b;
+	}
+	public int finishGame(Player player,GameMapping gameMapping) {
+		System.out.println(player.playerName+" is leaving from the game");
+		
+		if((gameMapping.totalPlayer-1)<=1){
+			setPlayers(gameMapping.players, player);
+			System.out.println(gameMapping.getCurrentPlayer().playerName+" is the winner");
+			return -1;
+		}
+		else{
+			setPlayers(gameMapping.players, player);
+			return 1;
+		}
+		
 	}
 	
 	

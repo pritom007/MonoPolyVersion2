@@ -14,5 +14,6 @@ public class GameControl {
 	public static PlayGame playGame = new PlayGame();
 	public static Bank bank=new Bank("€");
 	public static CardLand cardLand=new CardLand("C");
+	public static calender calender= new calender();
 
 }

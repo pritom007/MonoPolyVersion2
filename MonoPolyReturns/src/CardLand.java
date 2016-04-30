@@ -41,11 +41,11 @@ public class CardLand extends Land{
 		while (!input.equals("x")) {
 			if(input.equals("h")){
 				 System.out.println("1.Make the money average card\tIf you use this card,money of the both player will be same.");
-                 System.out.println("2.Turn around card\tIf you use this card,you can change the direction of your's or the other player's.");
+                 System.out.println("2.Free From Pay card\tIf you use this card,you don't need to pay if you step on other's land.");
                  System.out.println("3.Roadblocks card\tIf you use this card,you can put barricade at any place(2 directions). Any player steps on that will go back to his last position !!!. ");
                  System.out.println("4.Dice control card\tIf you use this card,you can control the result of the dice (1-6), when rolling the dice, the result is what you set.");
                  System.out.println("5.Rob cards\tIf you use this card,you can rob the object and get one prop from other player randomly.");
-                 System.out.println("6.Cash to Card\tIf you use this card,you can buy card in exchange of cash.");
+                 System.out.println("6.Stay in place Card\tIf you use this card,you will be in the same position after throwing the dice.");
                  System.out.println("7.Get points card\tIf you use this card,you can get points.\n");
                  
 			}
@@ -55,12 +55,12 @@ public class CardLand extends Land{
 				
 					switch (Integer.parseInt(input)) {
 						case 1:averageCash(player,gameMapping);break;
-						case 2:changePosition(player,gameMapping);break;
+						case 2:freeFromPay(player,gameMapping);break;
 						case 3:barricades(player,gameMapping);break;
 						case 4:useControlDice(player,gameMapping);break;
 						case 5:roob(player,gameMapping);break;
 						case 6:cashToCard(player,gameMapping);break;
-						case 7:cashToPoints(player,gameMapping);break;
+						case 7:stayInPlaceCard(player,gameMapping);break;
 						default:
 							break;
 					}
@@ -79,17 +79,15 @@ public class CardLand extends Land{
 		}
 		
 	}
-
-	private void cashToPoints(Player player, GameMapping gameMapping) {
-		if (player.numberOfCard[6]>0 && player.cashOfPlayer>=1000) {
-			System.out.println("you are using Cash to points card.");
-			System.out.println("your got 5 point by spending 1000$");
-			player.pointOfPlayer+=5;
-			player.cashOfPlayer-=1000;
+	private void stayInPlaceCard(Player player,GameMapping gameMapping) {
+		if(player.numberOfCard[6]>0){
+			System.out.println("you are using Dice control card.");
+			System.out.println("This will take effect while throwing the dice");
+			player.stayInPlace=true;
 			player.numberOfCard[6]-=1;
 		}
-		else {
-			System.out.println("sorry you don't have enough card or cash!");
+		else{
+			System.out.println("sorry you don't have enough card!");
 		}
 		
 	}
@@ -246,8 +244,15 @@ public class CardLand extends Land{
 		
 	}
 
-	private void changePosition(Player player, GameMapping gameMapping) {
-		// TODO Auto-generated method stub
+	private void freeFromPay(Player player, GameMapping gameMapping) {
+		if(player.numberOfCard[1]>0){
+			System.out.println("you are using Free from paying card.");
+			player.freeFromPay=true;
+			player.numberOfCard[1]-=1;
+		}
+		else{
+			System.out.println("sorry you don't have enough card!");
+		}
 		
 	}
 

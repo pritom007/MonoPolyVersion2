@@ -12,6 +12,8 @@ public class Options {
 	System.out.println("5 - see the information of players.");
 	System.out.println("6 - Roll dice and take action and change turn!");
 	System.out.println("7 - quit!");
+	System.out.println("8 - stock market");
+	
 	}
 	public void operation(String opration,Player player,GameMapping gameMapping) {
 		
