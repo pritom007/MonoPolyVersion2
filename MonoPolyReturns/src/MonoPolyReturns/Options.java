@@ -1,4 +1,4 @@
-
+package MonoPolyReturns;
 public class Options {
 
 	public void printOption(){
@@ -17,8 +17,14 @@ public class Options {
 	}
 	public void operation(String opration,Player player,GameMapping gameMapping) {
 		
+		/*
+		 * after the dice roll 
+		 * check if the next step is bank or not
+		 * if not then check if there is a bank or not
+		 */
 		if (!opration.equals("€")) 
 		GameControl.bank.checkBankinRoad(player, gameMapping);
+		//check if there is a barricade in front
 		if(GameControl.cardLand.checkBarricadeInRoad(player, gameMapping)){
 			System.out.println("Sorry there was a barricade in your road!you can't go forward this time");
 			System.out.println("Better luck next time!");

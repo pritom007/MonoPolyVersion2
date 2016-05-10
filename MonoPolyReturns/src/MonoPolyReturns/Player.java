@@ -1,3 +1,4 @@
+package MonoPolyReturns;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -18,7 +19,7 @@ public class Player extends GameMapping{
 	int currentPosition=0,lastPosition,nextPosition;
 
 	//cash,point,proper of player
-	protected int cashOfPlayer, depositOfPlayer,
+	protected double cashOfPlayer, depositOfPlayer,
 	pointOfPlayer = 30,housePropertyOfPlayer = 0,
 	totalMoneyOfPlayer;
 	//
@@ -76,7 +77,7 @@ public class Player extends GameMapping{
 	public void setAmountOfCard(int cardName){
 		this.numberOfCard[cardName]+=1;
 	}
-	public int getTotalMoney(Player player){
+	public double getTotalMoney(Player player){
 		return player.cashOfPlayer+player.depositOfPlayer+player.housePropertyOfPlayer;
 	}
 

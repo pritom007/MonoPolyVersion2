@@ -1,4 +1,4 @@
-
+package MonoPolyReturns;
 public class GameControl {
 	/*
 	 * this class mainly is to control the options 

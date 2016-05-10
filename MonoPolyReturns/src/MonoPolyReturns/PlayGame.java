@@ -1,3 +1,4 @@
+package MonoPolyReturns;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -7,7 +8,8 @@ import org.omg.CORBA.PRIVATE_MEMBER;
 public class PlayGame extends StockMarket{
 	
 	public PlayGame() {
-		}
+	
+	}
 
 	public int goForWord(Player player,GameMapping gameMapping) throws IOException{
 		
@@ -68,8 +70,8 @@ public class PlayGame extends StockMarket{
 				while (true) {
 					if(gameMapping.isInteger(i)){
 						if(Integer.parseInt(i)>=0 && Integer.parseInt(i)<=gameMapping.levelOfLand.length){
-							System.out.println("\nName of land "+gameMapping.nameOfLand[Integer.parseInt(i)]+" level "+gameMapping.levelOfLand[Integer.parseInt(i)]
-									+" barricade "+gameMapping.barricade[Integer.parseInt(i)]+" "+gameMapping.mapOfGame.get(gameMapping.posNumOfMap.get(Integer.parseInt(i))));
+							System.out.println("\nName of land: "+gameMapping.nameOfLand[Integer.parseInt(i)]+"\n level: "+gameMapping.levelOfLand[Integer.parseInt(i)]
+									+"\n barricade: "+gameMapping.barricade[Integer.parseInt(i)]+" "+gameMapping.mapOfGame.get(gameMapping.posNumOfMap.get(Integer.parseInt(i))));
 								break;
 						}
 						else{

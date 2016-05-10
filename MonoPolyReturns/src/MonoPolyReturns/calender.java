@@ -1,3 +1,4 @@
+package MonoPolyReturns;
 import java.time.Month;
 
 public class calender {
@@ -9,7 +10,7 @@ public class calender {
 		public calender(){
 		      
 		 }  
-		protected String addDay(int year,int month,int day,boolean addOrNot){
+		public String addDay(int year,int month,int day,boolean addOrNot){
 			if(addOrNot==true){
 
 						day += 1;

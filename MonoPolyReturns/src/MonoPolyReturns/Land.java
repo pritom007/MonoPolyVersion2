@@ -1,3 +1,4 @@
+package MonoPolyReturns;
 
 public abstract class Land extends GameMapping{
 	

@@ -1,4 +1,4 @@
-
+package MonoPolyReturns;
 public class News extends Land{
 
 	public News(String name) {

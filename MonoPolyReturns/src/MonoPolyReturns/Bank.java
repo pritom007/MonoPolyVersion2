@@ -1,3 +1,4 @@
+package MonoPolyReturns;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -82,6 +83,7 @@ public class Bank extends Land{
 			//JOptionPane.showMessageDialog(null,"All players go 10% interest on their deposit" ,"Message from Bank",JOptionPane.INFORMATION_MESSAGE);
 			System.out.println("All players go 10% interest on their deposit");
 	}
+	//check if there is bank on the road
 	protected void checkBankinRoad(Player player,GameMapping gameMapping){
 		for (int i = player.currentPosition+1; i <= player.nextPosition; i++) {
 			if(gameMapping.mapOfGame.get(gameMapping.posNumOfMap.get(i)).equals("€"))

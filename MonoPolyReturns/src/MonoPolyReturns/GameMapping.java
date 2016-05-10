@@ -1,3 +1,4 @@
+package MonoPolyReturns;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -58,7 +59,7 @@ public class GameMapping  {
 	}
 	
 	//make map from left to right
-	public void leftToRight(int from,int to){
+	private void leftToRight(int from,int to){
 		//checks if suggested path is valid "1" is hard coded for leftToRight()
 		if(checkMapCreator(from, to, 1)){
 			for(;from<to;Ypos++,from++,count++){
@@ -73,7 +74,7 @@ public class GameMapping  {
 		}
 	}
 	//make map from right to left
-	public void rightToLeft(int from,int to){
+	private void rightToLeft(int from,int to){
 		if(checkMapCreator(from,to,2)){
 			for(;from>to;Ypos--,from--,count++){
 				map[Xpos][Ypos] = "¤";
@@ -88,7 +89,7 @@ public class GameMapping  {
 
 	}
 	//make map from top to bottom
-	public void topToBottom(int from,int to){
+	private void topToBottom(int from,int to){
 		if(checkMapCreator(from,to,3)){
 			for(;from<to;Xpos++,from++,count++){
 				map[Xpos][Ypos] = "¤";
@@ -102,7 +103,7 @@ public class GameMapping  {
 		}
 	}
 	//make map from bottom to top
-	public void bottomToTop(int from,int to){
+	private void bottomToTop(int from,int to){
 		if(checkMapCreator(from,to,4)){
 			for(;from>to;Xpos--,from--,count++){
 				map[Xpos][Ypos] = "¤";
@@ -119,7 +120,7 @@ public class GameMapping  {
 	/*
 	 * this method verifies if the path that is to be created is valid or not
 	 */
-	public boolean checkMapCreator(int from,int to,int tbrf) {
+	private boolean checkMapCreator(int from,int to,int tbrf) {
 		switch (tbrf) {
 		case 1:
 			return (from<0 ||from>MaxX||to>MaxY||to<0||to<from)?false:true;
@@ -139,7 +140,7 @@ public class GameMapping  {
 	/*
 	 * set the other options than land
 	 */
-	public void setOtherOption(int row,int col,String newOpt){
+	private void setOtherOption(int row,int col,String newOpt){
 		map[row][col] = newOpt;
 		mapOfGame.put(row+"*"+col, map[row][col]);
 		posNumOfMap.put(count, row+"*"+col);
@@ -200,6 +201,7 @@ public class GameMapping  {
 		barricade = new boolean[posNumOfMap.size()];
 		ownerOfLand = new String[posNumOfMap.size()];
 		barricadOwner = new String[posNumOfMap.size()];
+		//for the land name
 		char name='A';
 		for(int i=0;i<posNumOfMap.size();i++){
 			levelOfLand[i]=0;
@@ -216,7 +218,7 @@ public class GameMapping  {
 	}
 	
 	/*
-	 * this function helps to get the positon of
+	 * this function helps to get the position of
 	 * the Player
 	 */
 	public int formatPosition(String position,char xy) {
@@ -297,7 +299,11 @@ public class GameMapping  {
 		return b;
 	}
 	public int finishGame(Player player,GameMapping gameMapping) {
-		System.out.println(player.playerName+" is leaving from the game");
+		if(player.totalMoneyOfPlayer>0)
+			System.out.println(player.playerName+" is leaving from the game");
+		else {
+			System.out.println(player.playerName+" has no money.So "+player.playerName+" is out of the game.");
+		}
 		
 		if((gameMapping.totalPlayer-1)<=1){
 			setPlayers(gameMapping.players, player);
