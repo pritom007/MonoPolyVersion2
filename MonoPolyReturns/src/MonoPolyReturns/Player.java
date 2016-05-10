@@ -49,9 +49,10 @@ public class Player extends GameMapping{
 	}
 	
 	//all property information of the player
-	public void allPlayerInformation(Player[] players){
+	public void allPlayerInformation(Player[] players,GameMapping gameMapping){
 		System.out.println("player name(symbol)\tpoint\tcash\tDeposite\tHouse property\tThe total amount of real estate assets");
-		for (int i=0;i<players.length;i++) {
+		//System.out.println("totalPlayer "+gameMapping.totalPlayer);
+		for (int i=0;i<gameMapping.totalPlayer;i++) {
 			System.out.println(players[i].playerName +"("+players[i].symbol+")" +"\t\t" + players[i].pointOfPlayer + "\t" + players[i].cashOfPlayer + "\t" + players[i].depositOfPlayer + "\t\t" + players[i].housePropertyOfPlayer+ "\t\t" + players[i].getTotalMoney(players[i]));
 
 		}

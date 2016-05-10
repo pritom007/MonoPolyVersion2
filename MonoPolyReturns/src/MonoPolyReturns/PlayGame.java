@@ -89,7 +89,7 @@ public class PlayGame extends StockMarket{
 			 * see all player's information here 
 			 */
 			else if(Integer.parseInt(press)==5){
-				player.allPlayerInformation(gameMapping.players);
+				player.allPlayerInformation(gameMapping.players,gameMapping);
 			}
 			/*
 			 * roll the dice and change the turn
@@ -133,7 +133,7 @@ public class PlayGame extends StockMarket{
 				}
 				
 				//assuming the next step
-				player.nextPosition+=diceRoll%(gameMapping.posNumOfMap.size());
+				player.nextPosition=(player.nextPosition+diceRoll)%(gameMapping.posNumOfMap.size());
 				//operations for next step
 				options.operation(gameMapping.mapOfGame.get(gameMapping.posNumOfMap.get(player.nextPosition)), player, gameMapping);
 				//after all the operation player is going to change

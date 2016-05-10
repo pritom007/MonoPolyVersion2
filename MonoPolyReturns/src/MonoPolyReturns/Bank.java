@@ -26,16 +26,17 @@ public class Bank extends Land{
 					System.out.println("Enter the amount you want to deposit:(max amount "+player.cashOfPlayer+
 							")");
 					String amount=scanner.next();
-					while (!(Integer.parseInt(amount)<=player.cashOfPlayer && Integer.parseInt(amount)>=0)) {
-						System.out.println("Invalid input!");
-						System.out.println("Enter the amount you want to deposit:(max amount "+player.cashOfPlayer+
-								")");
-						amount=scanner.next();
-						
+					if(!gameMapping.isInteger(amount)){
+						while (!(Integer.parseInt(amount)<=player.cashOfPlayer && Integer.parseInt(amount)>=0)) {
+							System.out.println("Invalid input!");
+							System.out.println("Enter the amount you want to deposit:(max amount "+player.cashOfPlayer+
+									")");
+							amount=scanner.next();
+						}
 					}
-					
-						player.depositOfPlayer+=Integer.parseInt(amount);
-						player.cashOfPlayer-=Integer.parseInt(amount);
+					player.depositOfPlayer+=Integer.parseInt(amount);
+					player.cashOfPlayer-=Integer.parseInt(amount);
+					break;
 				}
 			}
 			else if(option.equals("2")) {
@@ -53,6 +54,7 @@ public class Bank extends Land{
 					
 						player.cashOfPlayer+=Integer.parseInt(amount);
 						player.depositOfPlayer-=Integer.parseInt(amount);
+						break;
 				}
 			}
 			else{
@@ -76,9 +78,12 @@ public class Bank extends Land{
 	/*
 	 * Bank interest function
 	 */
-	public void interestOfBank(){
-			for (int i =0;i < GameControl.gameMapping.totalPlayer ;i++ ){
-				GameControl.gameMapping.players[i].depositOfPlayer+= GameControl.gameMapping.players[i].depositOfPlayer/10;
+	public void interestOfBank(GameMapping gameMapping){
+			System.out.println(gameMapping.totalPlayer);
+			for (int i =0;i < gameMapping.totalPlayer ;i++ ){
+				System.out.println("GameControl.gameMapping.players[i].depositOfPlayer "+gameMapping.players[i].depositOfPlayer);
+				gameMapping.players[i].depositOfPlayer+= 
+						gameMapping.players[i].depositOfPlayer/10;
 			}
 			//JOptionPane.showMessageDialog(null,"All players go 10% interest on their deposit" ,"Message from Bank",JOptionPane.INFORMATION_MESSAGE);
 			System.out.println("All players go 10% interest on their deposit");

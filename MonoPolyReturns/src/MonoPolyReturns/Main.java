@@ -41,7 +41,7 @@ public class Main {
 		//variable to keep track if day addition is needed or not
 		boolean addOrNot=false;
 		for(int i=0,j=0;i<gameMap.totalPlayer;){
-			System.out.println("Today is "+calender.dayname[j]+" "+calender.addDay(calender.year, calender.month, calender.day, addOrNot));
+			System.out.println("Today is "+calender.dayname[j]+" "+calender.addDay(calender.year, calender.month, calender.day, addOrNot,gameMap));
 			calender.setDayName(calender.dayname[j]);
 			System.out.println("Now it's "+gameMap.players[i].playerName+"'s turn to roll the dice.");
 			switch (playGame.goForWord(gameMap.players[i],gameMap)) {

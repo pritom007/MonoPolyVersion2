@@ -22,6 +22,7 @@ public class Options {
 		 * check if the next step is bank or not
 		 * if not then check if there is a bank or not
 		 */
+		System.out.println("opration "+opration);
 		if (!opration.equals("€")) 
 		GameControl.bank.checkBankinRoad(player, gameMapping);
 		//check if there is a barricade in front

@@ -1,45 +1,45 @@
 package MonoPolyReturns;
 import java.time.Month;
 
-public class calender {
+public class calender extends GameMapping{
 		
 		//setting the staring date
-		int year = 2016, month = 1, day = 1;
+		int year = 2016, month = 1, day =31;
 		String[] dayname ={"Friday","SaturDay","SunDay","MonDay","TuesDay","WednesDay","ThursDay"};
 		String DayName=dayname[0];
 		public calender(){
 		      
 		 }  
-		public String addDay(int year,int month,int day,boolean addOrNot){
+		public String addDay(int year,int month,int day,boolean addOrNot,GameMapping gameMapping){
 			if(addOrNot==true){
 
 						day += 1;
 						if (day > 31 && (month == 1||month == 3||month==5||month==7||month == 8||month == 10)){
 							month += 1;
 							day %= 31;
-							GameControl.bank.interestOfBank();
+							GameControl.bank.interestOfBank(gameMapping);
 						}
 						if (day > 30 && (month == 4||month == 6||month == 9||month ==11)){
 							month += 1;
 							day %= 30;
-							GameControl.bank.interestOfBank();
+							GameControl.bank.interestOfBank(gameMapping);
 						}
 						if (day > 29 && month == 2 && (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)){
 							month += 1;
 							day %= 29;
-							GameControl.bank.interestOfBank();
+							GameControl.bank.interestOfBank(gameMapping);
 						}
 						if (day > 28 && month == 2 && !((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))){
 							month += 1;
 							day %= 28;
-							GameControl.bank.interestOfBank();
+							GameControl.bank.interestOfBank(gameMapping);
 						}
 						if(day>31 && month==12 ){
 							month+=1;
 							month=month%12;
 							year+=1;
 							day%=31;
-							GameControl.bank.interestOfBank();
+							GameControl.bank.interestOfBank(gameMapping);
 						}
 						setAllDate(year, month, day);
 						

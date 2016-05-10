@@ -150,7 +150,14 @@ public class GameMapping  {
 	 * this can be edited
 	 */
 	public void defaultMap(){
-		
+		/*
+		leftToRight(0, 3);
+		setOtherOption(0, 2, "L");
+		topToBottom(0, 3);
+		setOtherOption(1, 3, "€");
+		rightToLeft(3, 0);
+		bottomToTop(3, 0);
+		*/
 		leftToRight(0, 8);
 		setOtherOption(0, 4, "C");
 		topToBottom(0, 1);
@@ -196,6 +203,7 @@ public class GameMapping  {
 		setOtherOption(2, 1, "L");
 		setOtherOption(2, 0, "P");
 		setOtherOption(1, 0, "P");
+		
 		levelOfLand = new int[posNumOfMap.size()];
 		nameOfLand = new String[posNumOfMap.size()];
 		barricade = new boolean[posNumOfMap.size()];
